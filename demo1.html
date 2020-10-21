@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    {{ mes }}
+    <h2>{{username}}</h2>
+    <span v-text="message">hehe</span>
+    <br>
+    <span v-html="a1"></span>
+    {{age}}
+    <input type="button" value="加1" @click="add_age">
+    <input type="button" value="点我" @click="change_num(50)">
+</div>
+<script src="js\vue.min.js"></script>
+<script>
+    new Vue({
+    el:"#app",
+    data:{
+        mes:"hello",
+        username:"baizhi",
+        message:"jiaoyu",
+        a1:"<a href='#'>点我</a>",
+        age:18,
+    },
+    methods:{
+        add_age(){
+            this.age += 1
+        },
+        change_num(num){
+            this.age=num
+
+        }
+    }
+    })
+
+</script>
+</body>
+</html>

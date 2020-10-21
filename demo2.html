@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h3 v-show="isshow">{{message}}</h3>
+    <br>
+    <span v-show="count>=30">百知</span>
+    <input type="button" value="加1" @click="change_num">
+</div>
+<script src="js/vue.min.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            message:"yxl-python",
+            isshow:true,
+            count:28,
+        },
+        methods:{
+            change_num(){
+                this.count += 1
+            }
+        }
+    })
+</script>
+</body>
+</html>
