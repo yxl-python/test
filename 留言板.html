@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="msg">
+    <input type="button" value="发表留言" @click="add_note">
+
+    <ul>
+        <li v-for="(note,index) in notes" :key="index">
+            <span>{{note}}</span>
+            <a href="javascript:;" @click="del_note(index)">删除</a>
+        </li>
+    </ul>
+
+    <span>留言总数：{{notes.length}}条</span>
+    <br>
+    <input type="button" value="删除所有留言" @click="del_all" v-show="notes.length != 0">
+</div>
+
+
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            notes:["111","222","333"],
+            msg:"",
+            isshow:true,
+        },
+        methods:{
+            add_note(){
+                let msg = this.msg;
+                if(msg){
+                    this.notes.unshift(this.msg);
+                    this.msg = "";
+                }
+            },
+            del_note(index){
+                this.notes.splice(index,1);
+                console.log(this.notes);
+                // if(this.notes == []){
+                //     this.isshow = false
+                // }
+
+            },
+            del_all(){
+                this.notes=[];
+                // this.isshow = !this.isshow
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
