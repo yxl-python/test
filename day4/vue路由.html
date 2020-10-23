@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <h2>主页</h2>
+    <hr>
+    <router-link to="/first">访问主页</router-link>
+    <router-link to="/second">访问用户页</router-link>
+    <router-view></router-view>
+
+</div>
+<script src="js/vue.min.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    let first = {
+      template:`
+      <div>
+       <h3>主页页面</h3>
+</div>
+      `
+    };
+    let second = {
+        template: `
+        <div>
+         <h3>用户列表页</h3>
+         <table border="1" cellspacing="0">
+         <tr>
+         <td>id</td>
+         <td>姓名</td>
+         <td>操作</td>
+         </tr>
+         <tr v-for="(user,index) in users" :key="index">
+         <td>{{user.id}}</td>
+         <td>{{user.username}}</td>
+         <td><a href="javascript:;" @click="del(index)">删除</a>
+             <router-link to="/third">更新</router-link>
+         </td>
+         </tr>
+</table>
+          接收页面三传来的参数：{{$route.params.id}}{{$route.params.name}}
+</div>
+        `,
+        data(){
+            return{
+                users:[
+                    {id:1,username:"hehe"},
+                    {id:2,username:"xixi"}
+                ]
+            }
+        },
+        methods:{
+            del(index){
+                this.users.splice(index,1)
+                console.log(this.users)
+            },
+        }
+    };
+
+    let third ={
+        template:`
+        <div>
+id:<input type="text" v-model="id">
+姓名：<input type="text" v-model="username">
+<button @click="submit">提交</button>
+</div>
+        `,
+        data:function () {
+            return{
+                id:"",
+                username:"",
+            }
+        },
+        method:{
+            submit(){
+                this.$router.push("/second/this.id/this.username")
+            }
+        }
+
+    };
+    let myRouter = new VueRouter({
+        routes:[
+            {path:"/first",component:first},
+            {path:"/second/:id/:name",component:second},
+            {path:"/third",component:third},
+            {path:"/",redirect:"/first"}
+        ]
+    });
+
+    new Vue({
+        el:"#app",
+        data:{},
+        router:myRouter
+    })
+
+</script>
+</body>
+</html>
